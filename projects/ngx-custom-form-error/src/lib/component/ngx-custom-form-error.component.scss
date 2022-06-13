@@ -1,0 +1,21 @@
+.c-additions {
+  display: flex;
+  gap: 1rem;
+  justify-content: space-between;
+  .c-error-container {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 0 3px;
+
+    margin-top: 0.3rem;
+  }
+  .c-counter {
+    min-width: fit-content;
+    width: fit-content;
+    text-align: end;
+
+    margin-top: 0.3rem;
+  }
+}
+

@@ -1,0 +1,29 @@
+<ng-content></ng-content>
+<div class="c-additions">
+    <div class="c-error-container" *ngIf="(hasError$ | async) as hasError;else emptyDiv">
+        <ng-container>
+            <ng-container *ngFor="let errorType of messagesKeys">
+                <div [style.color]="errorTextColor" class="c-error" *ngIf="hasError[errorType]">
+                    {{errorType | fromObject:messages}}
+                </div>
+            </ng-container>
+        </ng-container>
+    </div>
+    <div *ngIf="control && maxLengthCount" class="c-counter">
+        <span class="c-counter-left-bracket">[</span>
+        <span class="c-counter-first-elem">
+            {{(control.valueChanges | async)?.length || 0}}
+        </span>
+        <span class="c-counter-divider">
+            /
+        </span>
+        <span class="c-counter-last-elem">
+            {{maxLengthCount}}
+        </span>
+        <span class="c-counter-right-bracket">]</span>
+
+    </div>
+</div>
+<ng-template #emptyDiv>
+    <div></div>
+</ng-template>

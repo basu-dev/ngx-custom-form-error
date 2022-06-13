@@ -11,6 +11,12 @@
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
     "sourceMap": true,
+    "paths": {
+      "ngx-custom-form-error": [
+        "dist/ngx-custom-form-error/ngx-custom-form-error",
+        "dist/ngx-custom-form-error"
+      ]
+    },
     "declaration": false,
     "downlevelIteration": true,
     "experimentalDecorators": true,
