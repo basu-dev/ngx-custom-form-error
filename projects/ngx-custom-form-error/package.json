@@ -8,6 +8,10 @@
     "email": "adbasudev54@gmail.com",
     "url":"https://basudev-adhikari.com.np"
   },
+  "repository": {
+    "type":"git",
+    "url":"https://github.com/basu-dev/ngx-custom-form-error"
+  },
   "peerDependencies": {
     "@angular/common": "^13.2.0",
     "@angular/core": "^13.2.0"
