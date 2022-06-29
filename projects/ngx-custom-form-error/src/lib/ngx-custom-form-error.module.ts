@@ -1,12 +1,13 @@
 import { CommonModule } from "@angular/common";
 import { ModuleWithProviders, NgModule } from "@angular/core";
-import { CustomFormControlLabelDirective, GetValuePipe, NgxCustomFormErrorComponent } from "./component/ngx-custom-form-error.component";
-import { IErrorConfig } from "./error-config.model";
+import { NgxCustomFormErrorComponent } from "./component/ngx-custom-form-error.component";
+import { CustomFormControlLabelDirective } from "./custom-form-label.directive";
 import { CUSTOM_FORM_CONFIG } from "./injection-token";
+import { IErrorConfig } from "./ngx-custom-form-error.model";
 
 @NgModule({
   declarations: [
-    NgxCustomFormErrorComponent, GetValuePipe,
+    NgxCustomFormErrorComponent,
     CustomFormControlLabelDirective
   ],
   imports: [
