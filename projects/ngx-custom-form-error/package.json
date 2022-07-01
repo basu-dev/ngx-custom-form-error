@@ -2,7 +2,7 @@
   "name": "ngx-custom-form-error",
   "description": "This library makes showing errors in angular forms easier.",
   "keywords": ["angular","angular-forms","error","form-error","ngx-form-error","ngx-custom-form-error"],
-  "version": "0.0.3",
+  "version": "0.0.4",
   "author": {
     "name": "Basu Dev Adhikari",
     "email": "adbasudev54@gmail.com",

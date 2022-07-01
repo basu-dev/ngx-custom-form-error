@@ -1,10 +1,15 @@
 <form [formGroup]="form" class="form-group">
-  <c-form-error label="Name" [required]="null" [maxLengthCount]="20">
-    <input class="form-control" formControlName="name" [maxlength]="20">
-  </c-form-error>
+  <div class="form-field">
+    <c-form-error [maxLengthCount]="10">
+      <label cLabel class="required">Food Name</label>
+      <input class="form-control" formControlName="foodName">
+    </c-form-error>
+  </div>
 
-  <c-form-error label="Password">
-    <label class="mt-2 d-block">Password One</label>
-    <input class="form-control" formControlName="password">
-  </c-form-error>
+  <div class="form-field">
+    <c-form-error>
+      <label cLabel class="required">Star Rating</label>
+      <input type="number" class="form-control" formControlName="starRating">
+    </c-form-error>
+  </div>
 </form>

@@ -15,13 +15,9 @@ export class AppComponent {
 
   ngOnInit(): void {
     this.form = this.fb.group({
-      name: [, [Validators.required, Validators.maxLength(this.MAX_LENGTH),
-      Validators.minLength(5)
+      foodName: [, [Validators.required, Validators.maxLength(this.MAX_LENGTH)
       ]],
-
-      password: [, [Validators.required, Validators.minLength(5),
-      Validators.pattern(/[a-z]+-[a-z]+/)
-      ]]
+      starRating: [, [Validators.required, Validators.max(5)]],
     });
   }
 }
