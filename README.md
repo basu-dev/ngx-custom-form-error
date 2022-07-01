@@ -43,7 +43,7 @@ We will use the form shown above and discuss various ways of showing errors.
 
 > You need to wrap your element that has `formControlName` inside `c-form-error` element.
 
-1. Prividing each error messages manually
+1. **Prividing each error messages manually**
 
 ```html
 <form [formGroup]="form" class="form-group">
@@ -69,7 +69,8 @@ We will use the form shown above and discuss various ways of showing errors.
 </form>
 ```
 
-2. Using global config for error messages.
+2. **Using global config for error messages.**
+
    For this you have to provide a config of error messages while adding `NgxCustomFormError` in the imports array
 
 ```ts
@@ -173,4 +174,139 @@ If you do not have `<label>` tag in your form you can pass `label` input to the
 
 ### Extra Feature for Max Input Length
 
-img
+If we ant to include a visual indicator of max length of input lik in the image below, we can do that.
+
+![Input With Max Length Indicator](https://raw.githubusercontent.com/basu-dev/ngx-custom-form-error/master/projects/ngx-custom-form-error-test/sample-images/c-form-error1.png?raw=true)
+
+You can do it by providing `maxLengthCoung` input to the `<c-form-error>` element.
+
+```html
+<c-form-error [maxLengthCount]="25">
+  <label cLabel class="required">Food Name</label>
+  <input class="form-control" formControlName="foodName" />
+</c-form-error>
+```
+
+> Unfortunately, currently I haven't found a way to use the `maxLengthCount` provided in the form validators. So we need to pass the it manually.
+
+<br>
+
+### Handling different scenarios
+
+<br>
+
+1. **What if we have a message for `required` in the config but we want different error message.**
+
+- We can provide input to the `<c-form-element>` directly.
+
+```html
+<c-form-error required="I want this error message not the one in config.">
+</c-form-error>
+```
+
+2. **Can we not show error message in the UI although error message is there in config file, but only want to use maxLength Indicator.**
+
+- Well in this case we can set the errorMessage we don't want to show to null.
+
+```html
+<c-form-error [required]="null" [maxLength]="null" [maxLengthCount]="25">
+</c-form-error>
+```
+
+3. **What if we want to use different config file for different modules?**
+
+- We can provide two types of config.
+
+  - One on the root level. That need to be on the topmost level of you module tree. It's better to place in your `app.module.ts`.
+    It uses the syntax `NgxCustomFormErrorModule.rootConfig(<IErrorConfig>{...})`
+
+  - If you want to use different config in in any other module, you can use the syntax `NgxCustomFormErrorModule.childConfig(<IErrorConfig>{...})`.
+    What this will do is override the root config. You can override one or all config in root config.
+
+4. **Styilng you should be aware of.**
+
+- Let's see an examble below
+
+```html
+<div class="form-field">
+  <label cLabel></label>
+  <input formControlName="name" />
+</div>
+```
+
+```css
+.form-field > label {
+  ...;
+}
+.form-field > input {
+  ...;
+}
+```
+
+If you are using these type of selectors with immediate child, you will be in trouble while using `<c-form-error>` tag.
+
+```html
+<div class="form-field">
+  <c-form-error>
+    <label cLabel></label>
+    <input formControlName="name" />
+  </c-form-error>
+</div>
+```
+
+Now, those selectors no longer work as `label` and `input` are not immediate child of `.form-field`
+So you need to change style to
+
+```css
+.form-field label {
+  ...;
+}
+.form-field input {
+  ...;
+}
+```
+
+5. **What if we want to add \* sign inside label tag to show it is required**
+   Let's see the scenario
+
+```html
+<c-form-error>
+  <label cLabel>Food Name <span class="required">*</span></label>
+  ...
+</c-form-error>
+
+<style>
+  .required {
+    color: red;
+  }
+</style>
+```
+
+- **Solutions**
+
+  - As we know, we can also pass `label` as input to the `<c-form-error>` tag. So don't use `cLabel` directive altogether.
+
+  - In case of `cLabel` directive, it takes innerText of the element that has this directive,
+    so you can create another `span` tag for the `Food name` and use `cLabel` tag there
+
+  ```html
+  <c-form-error>
+    <label><span cLabel>Food Name</span> <span class="required">*</span></label>
+    ...
+  </c-form-error>
+  ```
+
+  - The **best option** is not to use extra markup for just a `red star` use `css` with `pseudo` selector instead.
+
+  ```html
+  <c-form-error>
+    <label cLabel class="required">Food Name</label>
+    ...
+  </c-form-error>
+  <style>
+    .required::after {
+      content: "*";
+      color: red;
+    }
+  </style>
+  ```
