@@ -15,7 +15,14 @@ main{
 
 }
 form {
-  --max-width:500px;
+
+  --max-width:300px;
+  @media screen and (min-width:400px){
+    --max-width:350px;
+  } 
+  @media screen and (min-width:600px){
+    --max-width:500px;
+  } 
   max-width:var(--max-width);
 .form-field{
   label{
