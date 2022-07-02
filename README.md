@@ -3,9 +3,9 @@
 NgxCustomFormError helps you display form errors in easiest and most consistent way possible.
 Visit link below to see some common use cases for this package.
 <br/>
-<a href="https://ngx-custom-form-error-test.netlify.app/">Some Form Input Demo</a>
+<a target="_blank" href="https://ngx-custom-form-error-test.netlify.app/">Some Form Input Demo</a>
 <br/>
-<a href="https://stackblitz.com/github/basu-dev/ngx-custom-form-error?file=projects%2Fngx-custom-form-error-test%2Fsrc%2Fapp%2Fapp.component.html">Source Code For the Demo</a>
+<a target="_blank" href="https://stackblitz.com/github/basu-dev/ngx-custom-form-error?file=projects%2Fngx-custom-form-error-test%2Fsrc%2Fapp%2Fapp.component.html">Source Code For the Demo</a>
 
 ## How To Use
 
