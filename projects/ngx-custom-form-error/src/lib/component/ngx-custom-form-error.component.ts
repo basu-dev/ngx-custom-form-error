@@ -25,7 +25,9 @@ export class NgxCustomFormErrorComponent {
   constructor(@Inject(CUSTOM_FORM_CONFIG) @Optional() public config: IErrorConfig) { }
 
   @ContentChild(FormControlName) control!: FormControlName;
+  /** This input `controlElement` is just for adding errorClass to the native element if config has addErrorClassToElement set to true*/
   @ContentChild(FormControlName, { read: ElementRef }) controlElement!: ElementRef;
+  /** This input labelRef, is used to grab label from innerText of the element that has `cLabel` directive. */
   @ContentChild(CustomFormControlLabelDirective) labelRef!: CustomFormControlLabelDirective;
 
   @Input() required?: string | null;
@@ -47,9 +49,10 @@ export class NgxCustomFormErrorComponent {
   /** `label` input can give label for the form error as input property in case `cLabel` directive is not used.  */
   @Input() label?: string | null;
 
-  messages!: IError;
   errors$!: Observable<null | string[]>;
-  errorClass!: string;
+
+  private messages!: IError;
+  private errorClass!: string;
 
   ngAfterContentInit() {
     this.init();
@@ -60,11 +63,12 @@ export class NgxCustomFormErrorComponent {
     this.onTouchedOnly = this.onTouchedOnly ?? this.config?.onTouchedOnly ?? this.defaultConfig.onTouchedOnly;
     this.addErrorClassToElement = this.addErrorClassToElement ?? this.config?.addErrorClassToElement ?? this.defaultConfig.addErrorClassToElement;
     this.errorTextColor = this.errorTextColor ?? this.config?.errorTextColor ?? this.defaultConfig.errorTextColor;
-    this.errorClass = this.config?.errorTextColor ?? this.defaultConfig.errorTextColor;
-    this.label = this.label ?? this.labelRef?.el.nativeElement.innerText ?? '';
+    this.errorClass = this.config?.errorClass ?? this.defaultConfig.errorClass;
+    this.label = this.label ?? this.labelRef?.el.nativeElement.innerText ?? undefined;
     this.initmessages();
   }
 
+  /*** We compose messages object from user inputs and global config here, which will use to show the error */
   initmessages() {
     // We are checking for undefined because input property can be null if user don't want to show error that is configured 
     // in the global config.
@@ -81,11 +85,13 @@ export class NgxCustomFormErrorComponent {
 
   getErrors() {
     const touched$ = new Observable<boolean>((subscribe => {
+      // If onTouchedOnly is `true` the observable emits `true` only after the element is touched
       if (this.onTouchedOnly) {
         // Thsee are use to trigger if the input is marked as touched
         this.control.valueAccessor?.registerOnTouched(() => subscribe.next(true));
         this.control.valueChanges?.pipe(takeUntil(this._destroy$)).subscribe(() => this.control.touched ? subscribe.next(true) : null);
       } else {
+        // If onTouchedOnly is `false` the observable emits `true` so as to start looking for error rightaway
         subscribe.next(true);
       }
     })).pipe(distinctUntilChanged());
@@ -94,24 +100,34 @@ export class NgxCustomFormErrorComponent {
       switchMap(() => of(this.control.errors)),
       tap(errors => {
         if (!this.addErrorClassToElement) return;
+        // if config has addErrorClassToElement set to true, we set the errorClass to the element thas has `formControlName` directive.
         if (errors) {
           this.controlElement.nativeElement.classList.add(this.errorClass);
         } else {
           this.controlElement.nativeElement.classList.remove(this.errorClass);
         }
       }),
+      // This observable will emit everytime we input on the element. And a simple distinctUntilChanged will not work
+      // since it will emit either `null` or `error object` with same properties. But two objects cannot be same
+      // so I have used `hasTwoObjectsSameProps` to stop emitting if the error object has same properties (meaning it is same ) as previous one.
       distinctUntilChanged((x, y) => hasTwoObjectsSameProps(x as Object, y as Object)),
       map((errorObj: any) => {
+
         if (!errorObj) return [];
+
         let errors = Object.keys(errorObj).map(key => {
+
           let errorKey = key as keyof IError;
+
           if (!this.messages[errorKey]) return;
+
           if (typeof this.messages[errorKey] == 'string') {
             return this.messages[errorKey];
           } else {
             let errorFn = this.messages[errorKey] as Function;
             return errorFn(this.label, errorObj[errorKey]);
           }
+
         });
         // This to eliminate array of undefined and nulls
         return errors.filter(error => error);
