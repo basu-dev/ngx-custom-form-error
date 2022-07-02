@@ -2,17 +2,19 @@
 
 NgxCustomFormError helps you display form errors in easiest and most consistent way possible.
 
-## How To Implement
+## How To Use
 
 The discussion below has following points.
 
 1. Setup
-2. Prividing each error messages manually.
+2. Providing each error messages manually.
 3. Using global config for error messages.
 4. Improving the Global Config for specific field inputs.
 5. Providing Label to the config from template
 6. Extra Feature for Max Input Length
 7. Handling different scenarios
+
+### Setup
 
 Install the pacakge and add it in the module you want to use.
 
@@ -189,13 +191,13 @@ You can do it by providing `maxLengthCoung` input to the `<c-form-error>` elemen
 
 > Unfortunately, currently I haven't found a way to use the `maxLengthCount` provided in the form validators. So we need to pass the it manually.
 
-<br>
+<br/>
 
 ### Handling different scenarios
 
 <br>
 
-1. **What if we have a message for `required` in the config but we want different error message.**
+**1. What if we have a message for `required` in the config but we want different error message.**
 
 - We can provide input to the `<c-form-element>` directly.
 
@@ -204,7 +206,7 @@ You can do it by providing `maxLengthCoung` input to the `<c-form-error>` elemen
 </c-form-error>
 ```
 
-2. **Can we not show error message in the UI although error message is there in config file, but only want to use maxLength Indicator.**
+**2. Can we not show error message in the UI although error message is there in config file, but only want to use maxLength Indicator.**
 
 - Well in this case we can set the errorMessage we don't want to show to null.
 
@@ -213,7 +215,7 @@ You can do it by providing `maxLengthCoung` input to the `<c-form-error>` elemen
 </c-form-error>
 ```
 
-3. **What if we want to use different config file for different modules?**
+**3. What if we want to use different config file for different modules?**
 
 - We can provide two types of config.
 
@@ -223,7 +225,7 @@ You can do it by providing `maxLengthCoung` input to the `<c-form-error>` elemen
   - If you want to use different config in in any other module, you can use the syntax `NgxCustomFormErrorModule.childConfig(<IErrorConfig>{...})`.
     What this will do is override the root config. You can override one or all config in root config.
 
-4. **Styilng you should be aware of.**
+**4. Styilng you should be aware of.**
 
 - Let's see an examble below
 
@@ -266,8 +268,8 @@ So you need to change style to
 }
 ```
 
-5. **What if we want to add \* sign inside label tag to show it is required**
-   Let's see the scenario
+**5. What if we want to add \* sign inside label tag to show it is required**
+Let's see the scenario
 
 ```html
 <c-form-error>
