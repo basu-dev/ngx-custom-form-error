@@ -1,19 +1,26 @@
 # NgxCustomFormError
 
 NgxCustomFormError helps you display form errors in easiest and most consistent way possible.
+Visit link below to see some common use cases for this package.
+<br/>
+<a href="www.google.com">Some Form Input Demo</a>
+<br/>
+<a href="https://stackblitz.com/github/basu-dev/ngx-custom-form-error?file=projects%2Fngx-custom-form-error-test%2Fsrc%2Fapp%2Fapp.component.html">Source Code For te Demo</a>
 
 ## How To Use
 
-The discussion below has following points.
+The discussion below has following sections.
 
-1. Setup
-2. Providing each error messages manually.
-3. Using global config for error messages.
-4. Improving the Global Config for specific field inputs.
-5. Providing Label to the config from template
-6. Extra Feature for Max Input Length
-7. Handling different scenarios
-8. Full Config Example
+1. <a href="#setup">Setup</a>
+2. <a href="#manual">Providing each error messages manually.</a>
+3. <a href="#config">Using global config for error messages.</a>
+4. <a href="#improve">Improving the Global Config for specific field inputs.</a>
+5. <a href="#label">Providing Label to the config from template</a>
+6. <a href="#extra">Extra Feature for Max Input Length</a>
+7. <a href="#scenarios">Handling different scenarios</a>
+8. <a href="#full-config">Full Config Example</a>
+
+<div id='setup'></div>
 
 ### Setup
 
@@ -42,11 +49,13 @@ this.form = this.fb.group({
 
 We will use the form shown above and discuss various ways of showing errors.
 
+<div id='manual'></div>
+
 ### Different ways of showing error messages
 
 > You need to wrap your element that has `formControlName` inside `c-form-error` element.
 
-1. **Prividing each error messages manually**
+#### 1. Prividing each error messages manually
 
 ```html
 <form [formGroup]="form" class="form-group">
@@ -71,6 +80,8 @@ We will use the form shown above and discuss various ways of showing errors.
   </div>
 </form>
 ```
+
+<div id='config'></div>
 
 2. **Using global config for error messages.**
 
@@ -113,6 +124,8 @@ In this case you don't need to pass any input to the `c-form-error` element. The
 </form>
 ```
 
+<div id='improve'></div>
+
 ### Improving the Global Config for specific field inputs
 
 As mentioned above, the error message `It is required` is obviously no enough. We want the message to be like `Food Name is required` and instead of `Input too long` we want `Food Name cannot exceed 25 characters`.
@@ -140,6 +153,8 @@ The error message in the config can either be string or function that takes two 
 > I will provide a config with all the properties at the end of this page. You can customize the config as your wish and paste that in your global config.
 
 As we can see from the config, we somehow need to pass value to the `label` that is being used in the config function whereas the data property is passed by the Angular Form itself when error occurs.
+
+<div id='label'></div>
 
 #### Providing Label to the config from template
 
@@ -175,6 +190,8 @@ If you do not have `<label>` tag in your form you can pass `label` input to the
 </c-form-error>
 ```
 
+<div id='extra'></div>
+
 ### Extra Feature for Max Input Length
 
 If we ant to include a visual indicator of max length of input lik in the image below, we can do that.
@@ -193,6 +210,8 @@ You can do it by providing `maxLengthCoung` input to the `<c-form-error>` elemen
 > Unfortunately, currently I haven't found a way to use the `maxLengthCount` provided in the form validators. So we need to pass the it manually.
 
 <br/>
+
+<div id='scenario'></div>
 
 ### Handling different scenarios
 
@@ -313,6 +332,8 @@ Let's see the scenario
     }
   </style>
   ```
+
+<div id='full-config'></div>
 
 ### Full Global Config Example
 
