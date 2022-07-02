@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve ngx-custom-form-error-test",
-    "build": "ng build",
+    "build:both": "ng build ngx-custom-form-error && ng build ngx-custom-form-error-test",
     "build:lib": "ng build ngx-custom-form-error",
     "watch:lib": "ng build ngx-custom-form-error --watch",
     "publish":"npm run build:lib && cp README.md dist/ngx-custom-form-error/README.md && cd dist/ngx-custom-form-error && npm publish --registry http://localhost:4873",

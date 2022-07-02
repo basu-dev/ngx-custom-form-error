@@ -5,7 +5,7 @@ Visit link below to see some common use cases for this package.
 <br/>
 <a href="www.google.com">Some Form Input Demo</a>
 <br/>
-<a href="https://stackblitz.com/github/basu-dev/ngx-custom-form-error?file=projects%2Fngx-custom-form-error-test%2Fsrc%2Fapp%2Fapp.component.html">Source Code For te Demo</a>
+<a href="https://stackblitz.com/github/basu-dev/ngx-custom-form-error?file=projects%2Fngx-custom-form-error-test%2Fsrc%2Fapp%2Fapp.component.html">Source Code For the Demo</a>
 
 ## How To Use
 
@@ -211,7 +211,7 @@ You can do it by providing `maxLengthCoung` input to the `<c-form-error>` elemen
 
 <br/>
 
-<div id='scenario'></div>
+<div id='scenarios'></div>
 
 ### Handling different scenarios
 
