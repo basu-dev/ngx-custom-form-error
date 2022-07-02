@@ -13,6 +13,7 @@ The discussion below has following points.
 5. Providing Label to the config from template
 6. Extra Feature for Max Input Length
 7. Handling different scenarios
+8. Full Config Example
 
 ### Setup
 
@@ -312,3 +313,23 @@ Let's see the scenario
     }
   </style>
   ```
+
+### Full Global Config Example
+
+You can use the config below and update as per your requirement.
+
+```ts
+    NgxCustomFormErrorModule.rootConfig(<IErrorConfig>{
+      onTouchedOnly: true,
+      errorTextColor: 'var(--text-danger)',
+      addErrorClassToElement: true,
+      errorClass: 'control-error',
+      email: 'Please enter a valid email',
+      required: (label: string) => `${label ?? 'It'} is required`,
+      pattern: (label: string) => `${label ?? 'It'} doesn't match required pattern.`,
+      minLength: (label: string, data: { requiredLength: number; }) => `${label ?? 'It'} should contain at least ${data.requiredLength} characters.`,
+      maxLength: (label: string, data: { requiredLength: number; }) => `${label ?? 'It'} cannot exceed more than ${data?.requiredLength} characters.`,
+      min: (label: string, data: { min: number; }) => `${label ?? 'It'} should be greater than ${data.min}.`,
+      max: (label: string, data: { max: number; }) => `${label ?? 'It'} cannot be greater than ${data?.max}.`,
+    }),
+```

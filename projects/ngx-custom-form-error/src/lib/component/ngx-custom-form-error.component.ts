@@ -24,7 +24,7 @@ export class NgxCustomFormErrorComponent {
 
   constructor(@Inject(CUSTOM_FORM_CONFIG) @Optional() public config: IErrorConfig) { }
 
-  @ContentChild(FormControlName) control!: FormControlName;
+  @ContentChild(FormControlName) formControl!: FormControlName;
   /** This input `controlElement` is just for adding errorClass to the native element if config has addErrorClassToElement set to true*/
   @ContentChild(FormControlName, { read: ElementRef }) controlElement!: ElementRef;
   /** This input labelRef, is used to grab label from innerText of the element that has `cLabel` directive. */
@@ -88,16 +88,16 @@ export class NgxCustomFormErrorComponent {
       // If onTouchedOnly is `true` the observable emits `true` only after the element is touched
       if (this.onTouchedOnly) {
         // Thsee are use to trigger if the input is marked as touched
-        this.control.valueAccessor?.registerOnTouched(() => subscribe.next(true));
-        this.control.valueChanges?.pipe(takeUntil(this._destroy$)).subscribe(() => this.control.touched ? subscribe.next(true) : null);
+        this.formControl.valueAccessor?.registerOnTouched(() => subscribe.next(true));
+        this.formControl.valueChanges?.pipe(takeUntil(this._destroy$)).subscribe(() => this.formControl.touched ? subscribe.next(true) : null);
       } else {
         // If onTouchedOnly is `false` the observable emits `true` so as to start looking for error rightaway
         subscribe.next(true);
       }
     })).pipe(distinctUntilChanged());
 
-    return combineLatest([touched$, this.control.statusChanges!]).pipe(
-      switchMap(() => of(this.control.errors)),
+    return combineLatest([touched$, this.formControl.statusChanges!]).pipe(
+      switchMap(() => of(this.formControl.errors)),
       tap(errors => {
         if (!this.addErrorClassToElement) return;
         // if config has addErrorClassToElement set to true, we set the errorClass to the element thas has `formControlName` directive.

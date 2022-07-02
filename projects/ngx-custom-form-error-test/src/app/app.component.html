@@ -1,15 +1,66 @@
-<form [formGroup]="form" class="form-group">
-  <div class="form-field">
-    <c-form-error [maxLengthCount]="10">
-      <label cLabel class="required">Food Name</label>
-      <input class="form-control" formControlName="foodName">
-    </c-form-error>
-  </div>
+<header>
+  <h2>NGX Custom Form Error Test</h2>
+</header>
+<main>
+  <form [formGroup]="form">
+    <div class="form-field">
+      <c-form-error [maxLengthCount]="MAX_LENGTH">
+        <label cLabel class="required">Food Name</label>
+        <input class="form-control" formControlName="foodName">
+      </c-form-error>
+      <div class="info">Here we show error but don't stop user from adding more than {{MAX_LENGTH}} characters.</div>
+    </div>
 
-  <div class="form-field">
-    <c-form-error>
-      <label cLabel class="required">Star Rating</label>
-      <input type="number" class="form-control" formControlName="starRating">
-    </c-form-error>
-  </div>
-</form>
+    <div class="form-field">
+      <c-form-error [maxLengthCount]="MAX_LENGTH">
+        <label cLabel class="required">Category</label>
+        <input class="form-control" [maxLength]="MAX_LENGTH" formControlName="category">
+      </c-form-error>
+      <div class="info">Here we stop user from adding more than {{MAX_LENGTH}} characters. It has nothning to with
+        <b>c-form-error</b> but we are adding
+        <b>maxLength</b> attribute in input element ( standard html input attribute).
+      </div>
+    </div>
+
+    <div class="form-field">
+      <c-form-error label="Star Rating">
+        <input type="number" placeholder="Star Rating" class="form-control" formControlName="starRating">
+      </c-form-error>
+      <div class="info">
+        Here we are not using `cLabel` but are providing label as input to the <b>c-form-error</b>.
+      </div>
+    </div>
+
+    <div class="form-field">
+      <c-form-error #psInput>
+        <label cLabel class="required">Password</label>
+        <input class="form-control" formControlName="password">
+      </c-form-error>
+    </div>
+
+    <div class="form-field">
+      <c-form-error #cpsInput>
+        <label cLabel class="required">Confirm Password</label>
+        <input class="form-control" formControlName="confirmPassword">
+        <span [style.color]="'var(--text-danger)'"
+          *ngIf="(psInput?.formControl?.valid && cpsInput?.formControl?.invalid && cpsInput?.formControl?.dirty) || false">
+          Two passwords do not match
+        </span>
+      </c-form-error>
+      <div class="info">
+        Currently we don't have a way to support custom error message with keys like <b>passwordDoNotMatch</b> for type
+        safety.
+        You can help me if you have any idea how should I deal with it, making it type safe in template as well.
+        So this is a workaround.
+        <br />
+        <br />
+        <p>
+
+          Please check the <b>ts</b> file as well how how I have implemented password not same custom error.
+        </p>
+      </div>
+    </div>
+    <br />
+
+  </form>
+</main>

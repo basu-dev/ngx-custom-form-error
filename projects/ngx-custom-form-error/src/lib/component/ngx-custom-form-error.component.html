@@ -9,10 +9,10 @@
             </ng-container>
         </ng-container>
     </div>
-    <div *ngIf="control && maxLengthCount" class="c-counter">
+    <div *ngIf="formControl && maxLengthCount" class="c-counter">
         <span class="c-counter-left-bracket">[</span>
         <span class="c-counter-first-elem">
-            {{(control.valueChanges | async)?.length || 0}}
+            {{(formControl.valueChanges | async)?.length || 0}}
         </span>
         <span class="c-counter-divider">
             /
