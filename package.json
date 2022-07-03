@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve ngx-custom-form-error-test",
+    "start": "ng build ngx-custom-form-error && ng serve ngx-custom-form-error-test",
     "build:both": "ng build ngx-custom-form-error && ng build ngx-custom-form-error-test",
     "build:lib": "ng build ngx-custom-form-error",
     "watch:lib": "ng build ngx-custom-form-error --watch",
