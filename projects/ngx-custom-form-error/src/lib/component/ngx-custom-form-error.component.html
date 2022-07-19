@@ -12,7 +12,7 @@
     <div *ngIf="formControl && maxLengthCount" class="c-counter">
         <span class="c-counter-left-bracket">[</span>
         <span class="c-counter-first-elem">
-            {{(formControl.valueChanges | async)?.length || 0}}
+            {{(formControl.valueChanges | async)?.length || formControl.value?.length || 0}}
         </span>
         <span class="c-counter-divider">
             /
